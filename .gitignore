@@ -1,0 +1,10 @@
+node_modules/
+dist/
+backend/venv/
+backend/collabscore.db
+backend/__pycache__/
+backend/**/__pycache__/
+*.pyc
+.env
+.env.local
+.DS_Store
