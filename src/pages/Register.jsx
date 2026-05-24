@@ -68,7 +68,6 @@ export default function Register() {
               className="w-full bg-slate-700 border border-slate-600 text-white rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 transition-colors">
               <option value="student">Estudiante / Miembro</option>
               <option value="professor">Profesor / Líder</option>
-              <option value="admin">Administrador</option>
             </select>
           </div>
           <button type="submit" disabled={loading}

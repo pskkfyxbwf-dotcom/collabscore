@@ -62,6 +62,9 @@ export default function Login() {
               </button>
             </div>
           </div>
+          <div className="flex justify-end">
+            <Link to="/forgot-password" className="text-xs text-purple-400 hover:text-purple-300">¿Olvidaste tu contraseña?</Link>
+          </div>
           <button type="submit" disabled={loading}
             className="w-full bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white font-semibold rounded-xl py-2.5 text-sm transition-colors mt-2">
             {loading ? 'Entrando...' : 'Entrar'}

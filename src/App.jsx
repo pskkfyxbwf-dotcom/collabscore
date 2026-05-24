@@ -10,6 +10,8 @@ import Tasks from './pages/Tasks.jsx'
 import ActivityLog from './pages/ActivityLog.jsx'
 import PeerEvaluation from './pages/PeerEvaluation.jsx'
 import ScoreDashboard from './pages/ScoreDashboard.jsx'
+import ForgotPassword from './pages/ForgotPassword.jsx'
+import ResetPassword from './pages/ResetPassword.jsx'
 
 export default function App() {
   return (
@@ -22,6 +24,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/projects/:id" element={<ProtectedRoute><ProjectDetail /></ProtectedRoute>} />
           <Route path="/projects/:id/tasks" element={<ProtectedRoute><Tasks /></ProtectedRoute>} />

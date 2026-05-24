@@ -7,7 +7,6 @@ import enum
 class RoleEnum(str, enum.Enum):
     student = "student"
     professor = "professor"
-    admin = "admin"
 
 class TaskStatusEnum(str, enum.Enum):
     pending = "pending"
@@ -90,6 +89,17 @@ class Activity(Base):
 
     project = relationship("Project", back_populates="activities")
     user = relationship("User", back_populates="activities")
+
+class PasswordResetToken(Base):
+    __tablename__ = "password_reset_tokens"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    token = Column(String(100), unique=True, index=True, nullable=False)
+    expires_at = Column(DateTime(timezone=True), nullable=False)
+    used = Column(Boolean, default=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    user = relationship("User")
 
 class Evaluation(Base):
     __tablename__ = "evaluations"

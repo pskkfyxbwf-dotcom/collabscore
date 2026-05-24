@@ -22,9 +22,14 @@ def get_scores(project_id: int, db: Session = Depends(get_db), user: models.User
         u = m.user
         # Task score: completed tasks weighted by type
         tasks = db.query(models.Task).filter_by(project_id=project_id, assignee_id=u.id).all()
-        task_score = sum(TASK_TYPE_WEIGHTS.get(t.task_type, 1.0) * (1 if t.status == "completed" else 0) for t in tasks) * 10
+        completed = [t for t in tasks if t.status == "completed"]
         total_tasks = len(tasks)
-        task_score = min(round(task_score / max(total_tasks, 1) * 10, 1), 40)
+        if total_tasks == 0:
+            task_score = 0.0
+        else:
+            weighted_completed = sum(TASK_TYPE_WEIGHTS.get(t.task_type, 1.0) for t in completed)
+            weighted_total = sum(TASK_TYPE_WEIGHTS.get(t.task_type, 1.0) for t in tasks)
+            task_score = min(round((weighted_completed / weighted_total) * 40, 1), 40)
 
         # Activity score: hours contributed
         acts = db.query(models.Activity).filter_by(project_id=project_id, user_id=u.id).all()
@@ -37,7 +42,7 @@ def get_scores(project_id: int, db: Session = Depends(get_db), user: models.User
             avg_quality = sum(e.quality for e in evals) / len(evals)
             avg_commitment = sum(e.commitment for e in evals) / len(evals)
             avg_collab = sum(e.collaboration for e in evals) / len(evals)
-            peer_score = round(((avg_quality + avg_commitment + avg_collab) / 3) * 6, 1)
+            peer_score = round(((avg_quality + avg_commitment + avg_collab) / 3) / 100 * 30, 1)
         else:
             peer_score = 0.0
 

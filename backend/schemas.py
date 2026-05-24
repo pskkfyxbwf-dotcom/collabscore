@@ -132,6 +132,14 @@ class EvaluationOut(BaseModel):
     class Config:
         from_attributes = True
 
+# Password reset
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr
+
+class ResetPasswordRequest(BaseModel):
+    token: str
+    new_password: str
+
 # Score
 class MemberScore(BaseModel):
     user_id: int
